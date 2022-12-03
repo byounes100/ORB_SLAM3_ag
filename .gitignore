@@ -8,6 +8,7 @@
 !*/
 
 .DS_Store
+MH01/
 
 CMakeLists.txt.user
 CMakeLists_modified.txt
@@ -59,8 +60,8 @@ Examples/ROS/ORB_SLAM3/build/
 
 KeyFrameTrajectory.txt
 CameraTrajectory.txt
-kf_*.txt
-f_*.txt
+#kf_*.txt
+#f_*.txt
 Thirdparty/DBoW2/build/
 Thirdparty/DBoW2/lib/
 Thirdparty/g2o/build/
