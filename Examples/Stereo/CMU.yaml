@@ -7,10 +7,10 @@
 # When the variables are commented, the system doesn't load a previous session or not store the current one
 
 # If the LoadFile doesn't exist, the system give a message and create a new Atlas from scratch
-#System.LoadAtlasFromFile: "Session_MH01_MH02_MH03_Mono"
+#System.LoadAtlasFromFile: "Session_MH01_MH02_MH03_Stereo60_Pseudo"
 
 # The store file is created from the current session, if a file with the same name exists it is deleted
-#System.SaveAtlasToFile: "Session_MH01_MH02_MH03_Mono"
+#System.SaveAtlasToFile: "Session_MH01_MH02_MH03_Stereo60_Pseudo"
 
 #--------------------------------------------------------------------------------------------
 # Camera Parameters. Adjust them!
@@ -30,15 +30,27 @@ Camera1.k1: -0.28340811
 Camera1.k2: 0.07395907
 Camera1.p1: 0.00019359
 Camera1.p2: 1.76187114e-05
-# equidistant: -0.03300294671825067, -0.5175124939377906, 2.313916807263481, -3.5068044052772973
+# equidistant distortion coeffs: [-0.03300294671825067, -0.5175124939377906, 2.313916807263481, -3.5068044052772973]
+
+Camera2.fx: 3153.3548102242053
+Camera2.fy: 3156.8246857953686
+Camera2.cx: 1526.224661207172
+Camera2.cy: 1550.987933348246
+# intrinsics: [3134.9225815898417, 3136.3178132070816, 1551.8246157491467, 1525.753309658798]
+
+Camera2.k1: -0.28368365
+Camera2.k2: 0.07451284
+Camera2.p1: -0.00010473
+Camera2.p2: -3.55590700e-05
+# equidistant distortion coeffs: [0.013287636903956027, -0.9328098967121817, 4.010927796308173, -6.123589827851233]
 
 Camera.width: 2448
 Camera.height: 2048
 
 Camera.newWidth: 600
 Camera.newHeight: 350
-
-# resolution: [2448x2048]
+# Camera.width: 752
+# Camera.height: 480
 
 # Camera frames per second 
 Camera.fps: 20
@@ -46,12 +58,30 @@ Camera.fps: 20
 # Color order of the images (0: BGR, 1: RGB. It is ignored if images are grayscale)
 Camera.RGB: 1
 
+Stereo.ThDepth: 60.0
+Stereo.T_c1_c2: !!opencv-matrix
+  rows: 4
+  cols: 4
+  dt: f
+  # data: [0.999997256477797,-0.002317135723275,-0.000343393120620,0.110074137800478,
+  #        0.002312067192432,0.999898048507103,-0.014090668452683,-0.000156612054392,
+  #        0.000376008102320,0.014089835846691,0.999900662638081,0.000889382785432,
+  #        0,0,0,1.000000000000000]
+  # data: [0.9998325568606223  , 0.011904870503678335 , 0.013897204749169582  , -0.2539691492205758,
+  #       -0.011896877817620713, 0.9999290133705296   , -0.0006576610305324751, 0.00016610460555711333,
+  #       -0.013904047602849188, 0.0004922175627975478, 0.9999032129071933    , -0.007372561159278305,
+  #        0.0                 , 0.0                  , 0.0                   , 1.0]
+  data: [0.99983256, -0.01189688, -0.01390405,  0.25382609,
+          0.01190487,  0.99992901,  0.00049222,  0.00286101,
+          0.0138972,  -0.00065766,  0.99990321,  0.01090142,
+          0.    ,      0. ,         0.        ,  1.        ]
+
 #--------------------------------------------------------------------------------------------
 # ORB Parameters
 #--------------------------------------------------------------------------------------------
 
 # ORB Extractor: Number of features per image
-ORBextractor.nFeatures: 1000
+ORBextractor.nFeatures: 1200
 
 # ORB Extractor: Scale factor between levels in the scale pyramid 	
 ORBextractor.scaleFactor: 1.2
@@ -68,7 +98,7 @@ ORBextractor.minThFAST: 7
 
 #--------------------------------------------------------------------------------------------
 # Viewer Parameters
-#---------------------------------------------------------------------------------------------
+#--------------------------------------------------------------------------------------------
 Viewer.KeyFrameSize: 0.05
 Viewer.KeyFrameLineWidth: 1.0
 Viewer.GraphLineWidth: 0.9
@@ -79,4 +109,5 @@ Viewer.ViewpointX: 0.0
 Viewer.ViewpointY: -0.7
 Viewer.ViewpointZ: -1.8
 Viewer.ViewpointF: 500.0
+Viewer.imageViewScale: 1.0
 
