@@ -35,13 +35,13 @@ Camera1.p2: 1.76187114e-05
 Camera.width: 2448
 Camera.height: 2048
 
-Camera.newWidth: 500
-Camera.newHeight: 418
+Camera.newWidth: 400 #300
+Camera.newHeight: 335 #251
 
 # resolution: [2448x2048]
 
 # Camera frames per second 
-Camera.fps: 3
+Camera.fps: 1
 
 # Color order of the images (0: BGR, 1: RGB. It is ignored if images are grayscale)
 Camera.RGB: 1
