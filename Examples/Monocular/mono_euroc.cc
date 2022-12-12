@@ -96,8 +96,8 @@ int main(int argc, char **argv)
         {
 
             // Read image from file
-            im = cv::imread(vstrImageFilenames[seq][ni], cv::IMREAD_UNCHANGED); //,CV_LOAD_IMAGE_UNCHANGED);
-            // im = cv::imread(vstrImageFilenames[seq][ni], cv::IMREAD_GRAYSCALE);
+            // im = cv::imread(vstrImageFilenames[seq][ni], cv::IMREAD_UNCHANGED); //,CV_LOAD_   IMAGE_UNCHANGED);
+            im = cv::imread(vstrImageFilenames[seq][ni], cv::IMREAD_GRAYSCALE);
             std::cout << "image: " << vstrImageFilenames[seq][ni] << std::endl;
             double tframe = vTimestampsCam[seq][ni];
 
@@ -148,8 +148,8 @@ int main(int argc, char **argv)
 
             // // apply the CLAHE algorithm to the L channel
             // cv::Ptr<cv::CLAHE> clahe = cv::createCLAHE();
-            // clahe->setClipLimit(2);
-            // clahe->setTilesGridSize(cv::Size(16, 16));
+            // clahe->setClipLimit(1);
+            // clahe->setTilesGridSize(cv::Size(20, 20));
             // cv::Mat dst;
             // clahe->apply(lab_planes[0], dst);
 

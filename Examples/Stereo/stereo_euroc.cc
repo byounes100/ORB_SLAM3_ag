@@ -103,8 +103,15 @@ int main(int argc, char **argv)
         for(int ni=0; ni<nImages[seq]; ni++, proccIm++)
         {
             // Read left and right images from file
-            imLeft = cv::imread(vstrImageLeft[seq][ni],cv::IMREAD_UNCHANGED); //,cv::IMREAD_UNCHANGED);
-            imRight = cv::imread(vstrImageRight[seq][ni],cv::IMREAD_UNCHANGED); //,cv::IMREAD_UNCHANGED);
+            // imLeft = cv::imread(vstrImageLeft[seq][ni],cv::IMREAD_UNCHANGED); //,cv::IMREAD_UNCHANGED);
+            // imRight = cv::imread(vstrImageRight[seq][ni],cv::IMREAD_UNCHANGED); //,cv::IMREAD_UNCHANGED);
+
+            imLeft = cv::imread(vstrImageLeft[seq][ni],cv::IMREAD_GRAYSCALE); //,cv::IMREAD_UNCHANGED);
+            imRight = cv::imread(vstrImageRight[seq][ni],cv::IMREAD_GRAYSCALE); //,cv::IMREAD_UNCHANGED);
+
+            std::cout << "left image: " << vstrImageLeft[seq][ni] << std::endl;
+            std::cout << "right image: " << vstrImageRight[seq][ni] << std::endl;
+            std::cout << "--" << std::endl;
 
             if(imLeft.empty())
             {

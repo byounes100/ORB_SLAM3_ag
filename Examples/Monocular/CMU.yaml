@@ -35,8 +35,8 @@ Camera1.p2: 1.76187114e-05
 Camera.width: 2448
 Camera.height: 2048
 
-Camera.newWidth: 400 #300
-Camera.newHeight: 335 #251
+Camera.newWidth: 400 #500 #400 #300
+Camera.newHeight: 335 #418 #335 #251
 
 # resolution: [2448x2048]
 

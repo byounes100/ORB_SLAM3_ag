@@ -2,10 +2,12 @@ import matplotlib.pyplot as plt
 import numpy as np
 
 if __name__ == '__main__':
-  traj_filename = 'f_dataset-CMU_collect1_mono_closestdt1.txt'
+  traj_filename = 'CameraTrajectory.txt'
+  # traj_filename = 'f_dataset-CMU_collect2_stereo_closestdt.txt'
   traj_data = np.loadtxt(traj_filename)
 
-  keypts_filename = 'kf_dataset-CMU_collect1_mono_closestdt1.txt'
+  keypts_filename = 'KeyFrameTrajectory.txt'
+  # keypts_filename = 'kf_dataset-CMU_collect2_stereo_closestdt.txt'
   keypts_data = np.loadtxt(keypts_filename)
 
   ax = plt.axes(projection='3d')

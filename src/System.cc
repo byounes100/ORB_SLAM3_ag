@@ -241,6 +241,31 @@ System::System(const string &strVocFile, const string &strSettingsFile, const eS
 
 }
 
+void clahe_image(cv::Mat &im){
+    // -------------------------------
+    cv::Mat lab_image;
+    cv::cvtColor(im, lab_image, cv::COLOR_BGR2Lab);
+
+    // Extract the L channel
+    std::vector<cv::Mat> lab_planes(3);
+    cv::split(lab_image, lab_planes); // now we have the L image in lab_planes[0]
+
+    // apply the CLAHE algorithm to the L channel
+    cv::Ptr<cv::CLAHE> clahe = cv::createCLAHE();
+    clahe->setClipLimit(4);
+    clahe->setTilesGridSize(cv::Size(8, 8));
+    cv::Mat dst;
+    clahe->apply(lab_planes[0], dst);
+
+    // Merge the the color planes back into an Lab image
+    dst.copyTo(lab_planes[0]);
+    cv::merge(lab_planes, lab_image);
+
+    // convert back to RGB
+    cv::cvtColor(lab_image, im, cv::COLOR_Lab2BGR);
+    // -------------------------------
+}
+
 Sophus::SE3f System::TrackStereo(const cv::Mat &imLeft, const cv::Mat &imRight, const double &timestamp, const vector<IMU::Point>& vImuMeas, string filename)
 {
     if(mSensor!=STEREO && mSensor!=IMU_STEREO)
@@ -250,23 +275,27 @@ Sophus::SE3f System::TrackStereo(const cv::Mat &imLeft, const cv::Mat &imRight, 
     }
 
     cv::Mat imLeftToFeed, imRightToFeed;
-    if(settings_ && settings_->needToRectify()){
-        cv::Mat M1l = settings_->M1l();
-        cv::Mat M2l = settings_->M2l();
-        cv::Mat M1r = settings_->M1r();
-        cv::Mat M2r = settings_->M2r();
+    // if(settings_ && settings_->needToRectify()){
+    //     cv::Mat M1l = settings_->M1l();
+    //     cv::Mat M2l = settings_->M2l();
+    //     cv::Mat M1r = settings_->M1r();
+    //     cv::Mat M2r = settings_->M2r();
 
-        cv::remap(imLeft, imLeftToFeed, M1l, M2l, cv::INTER_LINEAR);
-        cv::remap(imRight, imRightToFeed, M1r, M2r, cv::INTER_LINEAR);
-    }
-    else if(settings_ && settings_->needToResize()){
-        cv::resize(imLeft,imLeftToFeed,settings_->newImSize());
-        cv::resize(imRight,imRightToFeed,settings_->newImSize());
-    }
-    else{
-        imLeftToFeed = imLeft.clone();
-        imRightToFeed = imRight.clone();
-    }
+    //     cv::remap(imLeft, imLeftToFeed, M1l, M2l, cv::INTER_LINEAR);
+    //     cv::remap(imRight, imRightToFeed, M1r, M2r, cv::INTER_LINEAR);
+    // }
+    // else if(settings_ && settings_->needToResize()){
+    //     cv::resize(imLeft,imLeftToFeed,settings_->newImSize());
+    //     cv::resize(imRight,imRightToFeed,settings_->newImSize());
+    // }
+    // else{
+    //     imLeftToFeed = imLeft.clone();
+    //     imRightToFeed = imRight.clone();
+    // }
+    cv::resize(imLeft, imLeftToFeed, settings_->newImSize(), cv::INTER_AREA);
+    cv::resize(imRight, imRightToFeed, settings_->newImSize(), cv::INTER_AREA);
+    // clahe_image(imLeftToFeed);
+    // clahe_image(imRightToFeed);
 
     // Check mode change
     {
