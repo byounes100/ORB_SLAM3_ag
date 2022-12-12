@@ -2,10 +2,10 @@ import matplotlib.pyplot as plt
 import numpy as np
 
 if __name__ == '__main__':
-  traj_filename = 'f_dataset-CMU_mono_flying_only.txt'
+  traj_filename = 'f_dataset-CMU_collect1_mono.txt'
   traj_data = np.loadtxt(traj_filename)
 
-  keypts_filename = 'kf_dataset-CMU_mono_flying_only.txt'
+  keypts_filename = 'kf_dataset-CMU_collect1_mono.txt'
   keypts_data = np.loadtxt(keypts_filename)
 
   ax = plt.axes(projection='3d')

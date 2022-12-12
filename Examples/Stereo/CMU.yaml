@@ -47,8 +47,8 @@ Camera2.p2: -3.55590700e-05
 Camera.width: 2448
 Camera.height: 2048
 
-Camera.newWidth: 600
-Camera.newHeight: 350
+Camera.newWidth: 1224
+Camera.newHeight: 2048
 # Camera.width: 752
 # Camera.height: 480
 

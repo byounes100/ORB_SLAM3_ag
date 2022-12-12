@@ -96,7 +96,9 @@ int main(int argc, char **argv)
         {
 
             // Read image from file
-            im = cv::imread(vstrImageFilenames[seq][ni],cv::IMREAD_UNCHANGED); //,CV_LOAD_IMAGE_UNCHANGED);
+            im = cv::imread(vstrImageFilenames[seq][ni], cv::IMREAD_UNCHANGED); //,CV_LOAD_IMAGE_UNCHANGED);
+            // im = cv::imread(vstrImageFilenames[seq][ni], cv::IMREAD_GRAYSCALE);
+            std::cout << "image: " << vstrImageFilenames[seq][ni] << std::endl;
             double tframe = vTimestampsCam[seq][ni];
 
             if(im.empty())
@@ -117,7 +119,8 @@ int main(int argc, char **argv)
 #endif
                 int width = im.cols * imageScale;
                 int height = im.rows * imageScale;
-                cv::resize(im, im, cv::Size(width, height));
+                // cv::resize(im, im, cv::Size(width, height));
+                cv::resize(im, im, cv::Size(width, height), cv::INTER_AREA);
 #ifdef REGISTER_TIMES
     #ifdef COMPILEDWITHC11
                 std::chrono::steady_clock::time_point t_End_Resize = std::chrono::steady_clock::now();
@@ -134,6 +137,29 @@ int main(int argc, char **argv)
     #else
             std::chrono::monotonic_clock::time_point t1 = std::chrono::monotonic_clock::now();
     #endif
+
+            // -------------------------------
+            // cv::Mat lab_image;
+            // cv::cvtColor(im, lab_image, cv::COLOR_BGR2Lab);
+
+            // // Extract the L channel
+            // std::vector<cv::Mat> lab_planes(3);
+            // cv::split(lab_image, lab_planes); // now we have the L image in lab_planes[0]
+
+            // // apply the CLAHE algorithm to the L channel
+            // cv::Ptr<cv::CLAHE> clahe = cv::createCLAHE();
+            // clahe->setClipLimit(2);
+            // clahe->setTilesGridSize(cv::Size(16, 16));
+            // cv::Mat dst;
+            // clahe->apply(lab_planes[0], dst);
+
+            // // Merge the the color planes back into an Lab image
+            // dst.copyTo(lab_planes[0]);
+            // cv::merge(lab_planes, lab_image);
+
+            // // convert back to RGB
+            // cv::cvtColor(lab_image, im, cv::COLOR_Lab2BGR);
+            // -------------------------------
 
             // Pass the image to the SLAM system
             // cout << "tframe = " << tframe << endl;
